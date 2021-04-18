@@ -11,13 +11,23 @@
         <div class="navigation">
           <ul>
             <li tabindex="0">
-              <a>{{ $t("header__homepage") }}</a>
+              <router-link to="/">{{ $t("header__homepage") }}</router-link>
             </li>
             <li tabindex="0">
-              <a>{{ $t("header__contactus") }}</a>
+              <router-link to="/contact-us">{{ $t("header__contactus") }}</router-link>
             </li>
             <li tabindex="0">
-              <a @click="loginPopup()">{{ $t("header__login") }}</a>
+              <div v-if="USER_INFO.length == 0" class="login-btn" @click="loginPopup()">{{ $t("header__login") }}</div>
+              <template v-if="USER_INFO.firstName">
+                <div class="user" >
+                  <div class="text">{{ USER_INFO.firstName + " " + USER_INFO.lastName }}</div>
+                  <div class="group-logout">
+                    <span class="mail">{{USER_INFO.email}}</span>
+                    <button class="btn btn-danger" @click="logout()">{{$t('header__logout')}}</button>
+                  </div>
+                </div>
+              </template>
+              
             </li>
             <li tabindex="0">
               <select v-model="selectedLang" @change="changeLang()">
@@ -42,9 +52,20 @@
           ><span class="navicon"></span
         ></label>
         <ul class="menu">
-          <li @click="toggleMenubtn()" tabindex="0">Sign In</li>
-          <li @click="toggleMenubtn()" tabindex="0"><a>Home</a></li>
-          <li @click="toggleMenubtn()" tabindex="0"><a>Features</a></li>
+          <li  tabindex="0">
+            <div v-if="!USER_INFO.firstName" class="login-btn" @click="loginPopup() && toggleMenubtn()">{{ $t("header__login") }}</div>
+              <template v-if="USER_INFO.firstName">
+                <div class="user" >
+                  <div class="text" @click="toggleLogout()">{{ USER_INFO.firstName + " " + USER_INFO.lastName }}</div>
+                  <div class="group-logout" :class="{active : toggleLog}">
+                    <span class="mail">{{USER_INFO.email}}</span>
+                    <button class="btn btn-danger" @click="logout()">{{$t('header__logout')}}</button>
+                  </div>
+                </div>
+              </template>
+          </li>
+          <li @click="toggleMenubtn()" tabindex="0"><router-link to="/contact-us">{{ $t("header__contactus") }}</router-link></li>
+          <li @click="toggleMenubtn()" tabindex="0"><router-link to="/">{{ $t("header__homepage") }}</router-link></li>
         </ul>
       </div>
     </div>
@@ -64,10 +85,11 @@ export default {
     return {
       selectedLang: "tr",
       checked: false,
+      toggleLog:false
     };
   },
   computed:{
-      ...mapGetters(['LOGIN_POPUP_ACTIVE'])
+      ...mapGetters(['LOGIN_POPUP_ACTIVE',"USER_INFO"])
   },
   methods: {
     changeLang() {
@@ -78,10 +100,23 @@ export default {
         this.checked = !this.checked;
       }
     },
+    toggleLogout(){
+      this.toggleLog = !this.toggleLog
+    },
     loginPopup(){
         this.$store.commit('SET_LOGIN_POPUP_ACTIVE', true)
+    },
+    logout(){
+      this.$store.commit("SET_USER_INFO" , [])
     }
   },
+  watch:{
+    USER_INFO(item){
+      if(item.name){
+
+      }
+    }
+  }
 };
 </script>
 

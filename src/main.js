@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './routes';
 import store from './stores/store'
 import {i18n} from "./i18n-setup";
+import Vuelidate from 'vuelidate'
+
+
+Vue.use(Vuelidate)
 
 
 router.beforeEach((to, from, next) => {

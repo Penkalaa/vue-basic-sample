@@ -1,4 +1,4 @@
-
+import axios from 'axios'
 const state = {
     userInfo : [],
     loginPopupActive:false
@@ -19,8 +19,27 @@ const mutations = {
     },
     SET_USER_INFO (state, payload) {
         state.userInfo = payload;
-        localStorage.setItem("auth_user",payload.id);
     }
+};
+
+const actions  = {
+    CONTACT_US_SUBMIT({commit},submitData){
+        return new Promise((resolve,reject)=>{
+            axios
+                .post('https://jsonplaceholder.typicode.com/posts',{
+                    submitData
+                })
+                .then(({data,status})=>{
+                    if(status=== 201){
+                        console.log(data)
+                        resolve(true);
+                    }
+                })
+                .catch(error=>{
+                    reject(error);
+                })            
+        });
+    },
 };
 
 
@@ -29,4 +48,5 @@ export default {
     state,
     getters,
     mutations,
+    actions
 }

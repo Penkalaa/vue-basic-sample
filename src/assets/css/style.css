@@ -1,4 +1,16 @@
 @import url("/css/reset.css");
+button:focus {
+  outline: 4px solid transparent;
+}
+
+select:focus {
+  outline: 4px solid transparent;
+}
+
+a:focus {
+  outline: 4px solid transparent;
+}
+
 nav {
   position: relative;
   background: #ffffff;
@@ -25,15 +37,102 @@ nav .nav-top .navigation {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+}
+
+nav .nav-top .navigation select {
+  border: none;
+}
+
+nav .nav-top .navigation .user {
+  text-transform: uppercase;
+}
+
+nav .nav-top .navigation .user:hover .group-logout {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+nav .nav-top .navigation .user .group-logout {
+  display: none;
+  position: absolute;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #6988b3;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+nav .nav-top .navigation .user .group-logout .mail {
+  color: white;
+  margin: 1rem 0;
+}
+
+nav .nav-top .navigation .user .group-logout button {
+  margin: 1rem 0;
+}
+
+nav .nav-top .login-btn {
+  cursor: pointer;
 }
 
 nav .logo {
   cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 nav .logo img {
   max-height: 100%;
-  margin-top: 5.5px;
+}
+
+nav .navigation-mobile {
+  width: 100%;
+}
+
+nav .navigation-mobile .logo {
+  padding: 14px 20px;
+  float: left;
+  margin-top: 5px;
+}
+
+nav .navigation-mobile .user {
+  text-transform: uppercase;
+}
+
+nav .navigation-mobile .user .group-logout {
+  display: none;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #becada;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+nav .navigation-mobile .user .group-logout.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+nav .navigation-mobile .user .group-logout .mail {
+  color: white;
+  margin: 1rem 0;
+}
+
+nav .navigation-mobile .user .group-logout button {
+  margin: 1rem 0;
 }
 
 nav .navigation-mobile ul {
@@ -41,29 +140,25 @@ nav .navigation-mobile ul {
   max-height: 0;
   -webkit-transition: max-height 0.2s ease-out;
   transition: max-height 0.2s ease-out;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
 }
 
 nav .navigation-mobile li {
-  padding: 0.5rem 0;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
   text-align: center;
   color: #466289;
-}
-
-nav .navigation-mobile li:first-child {
-  border-bottom: 2px solid #bbc8cf;
-  color: #f39652;
-  margin: 0 8rem;
-}
-
-nav .navigation-mobile li .request-demo {
-  background: #77dfb3;
-  -webkit-box-shadow: 0px 4px 10px rgba(82, 183, 167, 0.25);
-          box-shadow: 0px 4px 10px rgba(82, 183, 167, 0.25);
-  border-radius: 30px;
-  padding: 0.5rem 2rem;
+  border: none;
+  outline: transparent;
 }
 
 nav .navigation-mobile .menu-btn {
@@ -110,6 +205,8 @@ nav .navigation-mobile .menu {
 }
 
 nav .navigation-mobile .menu-icon {
+  margin-top: 2rem;
+  z-index: 999999;
   cursor: pointer;
   display: inline-block;
   float: right;
@@ -155,66 +252,99 @@ nav .navigation-mobile .menu-icon .navicon:after {
   top: -5px;
 }
 
-@media (max-width: 990px) {
+@media (max-width: 576px) {
   nav .nav-top {
     display: none;
   }
 }
 
-@media (min-width: 990px) {
+@media (min-width: 576px) {
   nav .navigation-mobile {
     display: none;
   }
-  nav .navigation-mobile li {
-    float: left;
-  }
-  nav .navigation-mobile li a {
-    padding: 20px 30px;
-  }
-  nav .navigation-mobile .menu {
-    clear: none;
-    float: right;
-    max-height: none;
-  }
-  nav .navigation-mobile .menu-icon {
-    display: none;
-  }
 }
 
-nav .navigation {
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 25%;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 2rem;
-}
-
-nav .navigation ul {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  max-width: 100%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
-nav .navigation ul li {
-  white-space: nowrap;
+.modal-container .top-line {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.modal-container .top-line .icon-cross {
   cursor: pointer;
-  font-style: normal;
-  font-weight: 500;
-  color: #466289;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #6e1b1b;
+}
+
+@media (max-width: 576px) {
+  .modal-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 750px) {
+  .modal-container {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .modal-container {
+    width: 50%;
+  }
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 /*# sourceMappingURL=style.css.map */
